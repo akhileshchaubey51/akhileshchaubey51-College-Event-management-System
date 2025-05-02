@@ -1,0 +1,281 @@
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+html,
+body {
+    scroll-behavior: smooth;
+}
+
+.page1 {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5) url(image.png);
+    background-size: cover;
+    background-blend-mode: darken;
+}
+
+.page1-content {
+    height: 85vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.heading1 {
+    font-size: 160px;
+    font-weight: 900;
+    padding-left: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.heading2 {
+    font-size: 50px;
+    font-weight: 400;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-seriff;
+}
+
+.page1-content p {
+    transition: 0.2s ease-in;
+    color: white;
+}
+
+.page1-content p:hover {
+    -webkit-text-stroke: 2px white;
+    color: transparent;
+}
+
+.page1 .navbar {
+    height: 15vh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page1 .navbar img {
+    background-size: cover;
+    width: 250px;
+    height: 70px;
+}
+
+.page1 .navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page1 .navbar ul li {
+    margin: 0px 30px;
+    padding: 0px 20px;
+    margin-top: 30px;
+    list-style: none;
+    position: relative;
+}
+
+.navbar ul .link::after {
+    content: "";
+    left: 0;
+    bottom: -7px;
+    background: greenyellow;
+    height: 5px;
+    width: 0%;
+    position: absolute;
+    transition: 0.2s ease-in;
+}
+
+.navbar ul .link:hover::after {
+    width: 100%;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar ul li a:hover {
+    color: greenyellow;
+}
+
+.navbar ul .Event-menu {
+    position: absolute;
+    display: block;
+    width: 210px;
+    height: 200px;
+    background-color: #dcdcdce4;
+    opacity: 0;
+    z-index: -1;
+    transition: 0.2s ease-in;
+    top: 50px;
+    left: 0px;
+
+}
+
+.Events ul li a {
+    color: black;
+    font-size: 18px;
+}
+
+.Events .Event-menu li a:hover {
+    color: rgb(115, 180, 17);
+}
+
+.Events:hover .Event-menu {
+    z-index: 1;
+    opacity: 1;
+}
+
+.navbar button {
+    height: 38px;
+    width: 90px;
+    font-size: 20px;
+    margin: 0px 40px;
+    box-shadow: 0px 8px 32px 0px rgba(31, 38, 135, 0.37);
+    border: none;
+    color: white;
+    background-color: greenyellow;
+}
+
+.navbar button:active {
+    background-color: green;
+    transform: scale(0.95);
+    box-shadow: 0px 8px 32px 0px rgba(31, 38, 135, 0.37);
+}
+
+#page2 {
+    height: 100vh;
+    width: 100%;
+    background-color: #eee;
+}
+
+.page2-head {
+    font-size: 60px;
+    font-weight: 300;
+    padding-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    width: 100%;
+    color: rgb(12, 13, 12);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.page2-content {
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page2-content .page2-box {
+    height: 40vh;
+    width: 20%;
+    margin: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 32px 0px rgba(31, 38, 135, 0.37);
+    transition: 0.2s ease-in;
+
+}
+
+.page2-box .box-head {
+    font-size: 20px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.page2-box .box-line {
+    padding: 5px 10px;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.page2-box a {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: greenyellow;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.page2-box a:hover {
+    color: green;
+}
+
+#cultural-box {
+    height: 110px;
+    width: 100%;
+    background: url(cultural.png);
+    background-size: cover;
+}
+
+#tech-box {
+    height: 110px;
+    width: 100%;
+    background: url(tech.png);
+    background-size: cover;
+
+}
+
+#sports-box {
+    height: 110px;
+    width: 100%;
+    background: url(sports.png);
+    background-size: cover;
+}
+
+.page2-box:hover {
+    transform: translateY(-25px);
+}
+
+#page3 {
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page3-content {
+    height: 50%;
+    width: 15%;
+    color: white;
+    margin: 0% 20px;
+}
+
+.page3-content img {
+    width: 400px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    margin-left: -200px;
+
+}
+
+.page3-content p {
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.page3-content span {
+    font-family: 'Times New Roman', Times, serif;
+}
