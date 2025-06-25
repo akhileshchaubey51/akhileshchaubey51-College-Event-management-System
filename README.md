@@ -71,7 +71,8 @@ The College Event Management System (CEMS) simplifies college-level event manage
 3. Import the provided `.sql` file into phpMyAdmin
 4. Start Apache & MySQL
 5. Visit `http://localhost/CEMS`
-
+6. login id :admin@gehu.ac.in
+7. Password : Admin@123
 ---
 
 ## 🙋‍♂️ Author
