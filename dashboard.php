@@ -23,7 +23,7 @@ $profile_image = !empty($user['profile_image']) ? 'uploads/' . $user['profile_im
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Event Management System - Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Dropdown styling */
         .user-dropdown {
@@ -79,7 +79,7 @@ $profile_image = !empty($user['profile_image']) ? 'uploads/' . $user['profile_im
             </div>
             <ul class="nav-link">
                 <li class="link"><a href="">Home</a></li>
-                <li class="Events"><a href="#page2">Events</a>
+                <li class="Events"><a href="events.php">Events</a>
                     <ul class="Event-menu">
                     <li><a href="tech-events.php">Tech Event</a></li>
                     <li><a href="Cultural.php">Cultural Event</a></li>
@@ -87,7 +87,7 @@ $profile_image = !empty($user['profile_image']) ? 'uploads/' . $user['profile_im
                 </ul> </li>
                 
                 <li class="link"><a href="contact.php">Contact us</a></li>
-                <li class="link"><a href="">About</a></li>
+                <li class="link"><a href="about.php">About</a></li>
             </ul>
 
             <!-- User dropdown -->

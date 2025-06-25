@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 <body>
     <div class="page1">
         <div class="navbar">
@@ -18,7 +18,7 @@ session_start();
             </div>
             <ul class="nav-link">
                 <li class="link"><a href="">Home</a></li>
-                <li class="Events"><a href="#page2">Events</a>
+                <li class="Events"><a href="events.php">Events</a>
                     <ul class="Event-menu">
                     <li><a href="tech-events.php">Tech Event</a></li>
                     <li><a href="Cultural.php">Cultural Event</a></li>
@@ -26,7 +26,7 @@ session_start();
                 </ul> </li>
                 
                 <li class="link"><a href="contact.php">Contact us</a></li>
-                <li class="link"><a href="">About</a></li>
+                <li class="link"><a href="about.php">About</a></li>
             </ul>
             <button onclick="location.href='login.php';">Login</button>
 
@@ -56,7 +56,7 @@ session_start();
                 <div id="sports-box"></div>
                 <p class="box-head">Sports Event</p>
                 <p class="box-line">Explore to participate in the Events and win certificates and many more</p>
-                <a href="sports.html">Visit</a>
+                <a href="sport_events.php">Visit</a>
             </div>
         </div>
     </div>

@@ -1,18 +1,26 @@
 <?php
 session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['email'])) {
+    echo "<h3 style='text-align:center; color:red;'>⚠️ Please login to view your registered events.</h3>";
+    exit();
+}
+
 $host = "localhost";
 $user = "root";
 $pass = "";
 $dbname = "cems";
 $conn = new mysqli($host, $user, $pass, $dbname);
 
+// Check DB connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Use session email; fallback for testing
-$email = $_SESSION['email'] ?? 'student@gehu.ac.in';
+$email = $_SESSION['email'];
 
+// Fetch registrations
 $stmt = $conn->prepare("SELECT * FROM event_registrations WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -39,7 +47,7 @@ $result = $stmt->get_result();
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             max-width: 1200px;
             margin: auto;
@@ -116,7 +124,7 @@ $result = $stmt->get_result();
 
 <h2>🎟️ My Registered Events</h2>
 
-<?php if ($result->num_rows > 0): ?>
+<?php if ($result && $result->num_rows > 0): ?>
 <div class="grid">
     <?php while ($row = $result->fetch_assoc()):
         $type = strtolower($row['event_type']);

@@ -64,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['payment_screenshot']
     }
 
     if (move_uploaded_file($_FILES["payment_screenshot"]["tmp_name"], $target_file)) {
-        $stmt = $conn->prepare("UPDATE event_registrations SET payment_screenshot = ?, payment_status = 'Paid' WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE event_registrations SET payment_screenshot = ?, payment_status = 'Pending Approval' WHERE id = ?");
+
         if (!$stmt) {
             die("Prepare failed: " . $conn->error);
         }
@@ -95,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['payment_screenshot']
     <title>Upload Payment Screenshot</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', serif;
             padding: 40px;
             background-color: #f0f2f5;
         }
@@ -154,6 +155,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['payment_screenshot']
         .error {
             background-color: #dc3545;
         }
+	/* For smaller devices like smartphones */
+@media (max-width: 480px) {
+    .heading1 {
+        font-size: 70px;
+    }
+
+    .heading2 {
+        font-size: 24px;
+    }
+
+    .page2-head {
+        font-size: 30px;
+    }
+
+    .page2-content .page2-box {
+        width: 100%;
+        margin: 10px 0;
+        height: 25vh;
+    }
+
+    .page1 .navbar ul li {
+        font-size: 16px;
+    }
+
+    .navbar button {
+        font-size: 16px;
+        width: 70px;
+        height: 30px;
+    }
+}
     </style>
 </head>
 <body>

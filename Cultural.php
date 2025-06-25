@@ -17,11 +17,12 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cultural Events</title>
-    <style>
-        /* Your styling */
-        body {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cultural Events - EMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+  <style>
+   body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f2f5;
             margin: 0;
@@ -134,69 +135,60 @@ try {
         .show {
             display: block;
         }
-    </style>
+  </style>
 </head>
 
 <body>
-
-    <div id="page1">
-        <h1>Cultural Events</h1>
-
-        <div class="filter_button">
+  <div id="page1">
+    <h1>Cultural Events</h1>
+    <div class="filter_button">
             <button class="buttons active" data-filter="all">All</button>
             <button class="buttons" data-filter="Holi">Holi</button>
             <button class="buttons" data-filter="Diwali">Diwali</button>
             <button class="buttons" data-filter="Freshers">Freshers</button>
         </div>
 
-        <div class="element-container">
-            <?php foreach ($culturalEvents as $event): ?>
-                <?php
-                    // Handle empty category
-                    $categoryClass = isset($event['category']) && !empty($event['category']) ? str_replace(' ', '-', htmlspecialchars($event['category'])) : 'uncategorized';
-                ?>
-                <div class="filterelement all <?php echo $categoryClass; ?>">
-                    <div class="box-image">
-                        <img src="<?php echo htmlspecialchars($event['image_path']); ?>" alt="<?php echo htmlspecialchars($event['event_name']); ?>">
-                    </div>
-                    <p><?php echo htmlspecialchars($event['event_name']); ?></p>
-                    <span>On <?php echo htmlspecialchars(date('d-M', strtotime($event['event_date']))); ?></span><br>
-                    <?php if ($isLoggedIn): ?>
-                        <form method="POST" action="register_event.php?event_id=<?php echo $event['id']; ?>">
-                            <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
-                            <button type="submit">Register</button>
-                        </form>
-                    <?php else: ?>
-                        <a href="login.php"><button> Register</button></a>
-                    <?php endif; ?>
+    <div class="element-container">
+        <?php foreach ($culturalEvents as $event): ?>
+            <div class="filterelement <?php echo htmlspecialchars(str_replace(' ', '-', $event['category'])); ?>">
+                <div class="box-image">
+                    <img src="<?php echo htmlspecialchars($event['image_path']); ?>" alt="Event Image" />
                 </div>
-            <?php endforeach; ?>
-        </div>
-
+                <p><?php echo htmlspecialchars($event['event_name']); ?></p>
+                <span><?php echo nl2br(htmlspecialchars($event['title'])); ?></span><br>
+                <button onclick="window.location.href='view_cultural.php?event_name=<?php echo urlencode($event['event_name']); ?>'">View Details</button>
+                <?php if ($isLoggedIn): ?>
+                    <button onclick="window.location.href='register_event.php?event_name=<?php echo urlencode($event['event_name']); ?>&event_type=Cultural'">Register</button>
+                <?php else: ?>
+                    <button onclick="window.location.href='login.php'">Register</button>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
+  </div>
 
-    <script>
-        const filterbuttons = document.querySelectorAll(".buttons");
-        const elements = document.querySelectorAll(".filterelement");
+  <script>
+    const filterButtons = document.querySelectorAll(".buttons");
+    const elements = document.querySelectorAll(".filterelement");
 
-        filterbuttons.forEach(button => {
-            button.addEventListener("click", () => {
-                document.querySelector(".buttons.active").classList.remove("active");
-                button.classList.add("active");
-                const filter = button.getAttribute("data-filter");
+    filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelector(".buttons.active").classList.remove("active");
+            btn.classList.add("active");
 
-                elements.forEach(el => {
-                    if (filter === "all" || el.classList.contains(filter)) {
-                        el.classList.remove("hide");
-                        el.classList.add("show");
-                    } else {
-                        el.classList.remove("show");
-                        el.classList.add("hide");
-                    }
-                });
+            const filter = btn.getAttribute("data-filter");
+
+            elements.forEach(el => {
+                if (filter === "all" || el.classList.contains(filter)) {
+                    el.classList.remove("hide");
+                    el.classList.add("show");
+                } else {
+                    el.classList.remove("show");
+                    el.classList.add("hide");
+                }
             });
         });
-    </script>
-
+    });
+  </script>
 </body>
 </html>

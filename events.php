@@ -1,57 +1,149 @@
 <?php
-session_start();
-include 'config.php';
-
-// Get event type from URL
-$type = isset($_GET['type']) ? $_GET['type'] : 'all';
-
-$sql = "SELECT * FROM events";
-if ($type != 'all') {
-    $sql .= " WHERE category = '" . $conn->real_escape_string($type) . "'";
+// events.php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "cems";
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-$result = $conn->query($sql);
+
+// Fetch all events
+$all_events = [];
+
+$tech = $conn->query("SELECT id, event_name, image_path, 'Tech' as type, event_date FROM tech_events");
+while ($row = $tech->fetch_assoc()) {
+    $all_events[] = $row;
+}
+
+$cultural = $conn->query("SELECT id, event_name, image_path, 'Cultural' as type, event_date FROM cultural_events");
+while ($row = $cultural->fetch_assoc()) {
+    $all_events[] = $row;
+}
+
+$sport = $conn->query("SELECT id, event_name, image_path, 'Sport' as type, event_date FROM sport_events");
+while ($row = $sport->fetch_assoc()) {
+    $all_events[] = $row;
+}
+
+// Sort by event date
+usort($all_events, function ($a, $b) {
+    return strtotime($a['event_date']) <=> strtotime($b['event_date']);
+});
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upcoming Events</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>All Events</title>
     <style>
         body {
-            background: #f2f2f2;
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 20px;
         }
-        .event-card {
-            margin-bottom: 20px;
+
+        h2 {
+            color: #444;
+            text-align: center;
+        }
+
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .event-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .event-box:hover {
+            transform: scale(1.02);
+        }
+
+        .event-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .event-box h3 {
+            margin: 10px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .event-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .btn-group {
+            margin-top: 12px;
+        }
+
+        .btn {
+            background: #007bff;
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        .btn.view {
+            background: #28a745;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="my-4 text-center">Upcoming 
-            <?php 
-                if ($type == 'tech') echo "Tech Events";
-                elseif ($type == 'cultural') echo "Cultural Events";
-                elseif ($type == 'sport') echo "Sport Events";
-                else echo "All Events";
-            ?>
-        </h1>
 
-        <div class="row">
-            <?php while ($row = $result->fetch_assoc()) { ?>
-                <div class="col-md-4">
-                    <div class="card event-card">
-                        <img src="<?php echo $row['image']; ?>" class="card-img-top" alt="Event Image">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $row['title']; ?></h5>
-                            <p class="card-text"><?php echo $row['description']; ?></p>
-                            <p class="card-text"><strong>Date:</strong> <?php echo $row['date']; ?></p>
-                            <a href="book_event.php?event_id=<?php echo $row['id']; ?>" class="btn btn-primary">Book Now</a>
-                        </div>
-                    </div>
+<body>
+
+    <h2>📅 Available Events</h2>
+
+    <div class="events-container">
+        <?php foreach ($all_events as $event): 
+            $image = htmlspecialchars($event['image_path']);
+            $name = htmlspecialchars($event['event_name']);
+            $type = $event['type'];
+            $id = $event['id'];
+            $date = date("F j, Y", strtotime($event['event_date']));
+
+            // Set view page according to event type
+            $view_page = '';
+            if ($type === 'Cultural') {
+                $view_page = 'view_cultural_event.php';
+            } elseif ($type === 'Tech') {
+                $view_page = 'view_tech_event.php';
+            } elseif ($type === 'Sport') {
+                $view_page = 'view_sport_event.php';
+            }
+        ?>
+            <div class="event-box">
+                <img src="<?= !empty($image) ? $image : 'default.jpg' ?>" alt="Event Image">
+                <h3><?= $name ?> (<?= $type ?>)</h3>
+                <div class="event-date">📅 <?= $date ?></div>
+                <div class="btn-group">
+                    <a class="btn view" href="<?= $view_page ?>?event_id=<?= $id ?>">View Details</a>
+                    <a class="btn" href="register_event.php?event_id=<?= $id ?>&type=<?= $type ?>">Register</a>
                 </div>
-            <?php } ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
+
 </body>
 </html>
